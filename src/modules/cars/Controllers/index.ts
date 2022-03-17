@@ -14,7 +14,7 @@ const categoriesRepository = new CategoryRepository();
 const specificationRepository = new SpecificationRepository();
 
 //services
-const importCategoryService = new ImportCategoryService();
+const importCategoryService = new ImportCategoryService(categoriesRepository);
 const categoryService = new CategoryService(categoriesRepository);
 const listCategoriesService = new ListCategoriesService(categoriesRepository);
 const specificationService = new SpecificarionService(specificationRepository);
