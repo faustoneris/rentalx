@@ -22,8 +22,10 @@ export class SpecificationRepository implements ISpecificationsRepository {
     this.specifications.push(specification);
   }
 
+  //TODO: arrumar funçao findByName para retornar o nome da especificaçao
   findByName(name: string): Specification {
-    const specification = this.specifications.find((x) => x.name === name);
+    const specification = this.specifications.find((x) => x.name == name);
+    console.log(specification);
 
     return specification;
   }
