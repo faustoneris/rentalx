@@ -1,5 +1,5 @@
 import { Specification } from "../model/Specification";
-import { ISpecificationsRepository } from "../repositories/ISpecificationsRepository";
+import { SpecificationRepository } from "../repositories/SpecificationsRepository";
 
 interface IRequest {
   name: string;
@@ -7,7 +7,7 @@ interface IRequest {
 }
 
 export class SpecificarionService {
-  constructor(private specificarionRepository: ISpecificationsRepository) {}
+  constructor(private specificarionRepository: SpecificationRepository) {}
 
   execute(data: IRequest): void {
     const alreadyExists = this.specificarionRepository.findByName(data.name);
