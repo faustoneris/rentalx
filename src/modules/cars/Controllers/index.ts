@@ -16,3 +16,5 @@ export const categoryController = new CreateCategoryController(
 export const listCategoriesController = new ListCategoriesController(
   listCategoriesService
 );
+
+console.log();
