@@ -1,5 +1,5 @@
 import fs from "fs";
-import csvParse from "csv-parser";
+import { parse } from "csv-parse";
 import { CategoryRepository } from "../repositories/CategoryRepository";
 
 interface IImportCategory {
@@ -14,14 +14,17 @@ export class ImportCategoryService {
     return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(file.path);
       const categories: IImportCategory[] = [];
-      const parseFile = csvParse();
+      const parseFile = parse();
 
       stream.pipe(parseFile);
 
       parseFile
         .on("data", (line) => {
-          const category = line;
-          categories.push(category);
+          const [name, description] = line;
+          categories.push({
+            name,
+            description,
+          });
         })
         .on("end", () => {
           resolve(categories);
