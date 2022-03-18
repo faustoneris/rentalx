@@ -9,7 +9,27 @@ interface IImportCategory {
 export class ImportCategoryService {
   constructor(private categoriesRepository: CategoryRepository) {}
 
-  loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
+  async execute(file: Express.Multer.File): Promise<void> {
+    const categories = await this.loadCategories(file);
+
+    categories.map((category) => {
+      const { name, description } = category;
+
+      const existsCategory = this.categoriesRepository.findByName(name);
+
+      if (!existsCategory) {
+        this.categoriesRepository.create({
+          name,
+          description,
+          created_at: new Date(),
+        });
+      }
+    });
+  }
+
+  private loadCategories(
+    file: Express.Multer.File
+  ): Promise<IImportCategory[]> {
     console.log(file);
     return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(file.path);
@@ -33,11 +53,5 @@ export class ImportCategoryService {
           reject(err);
         });
     });
-  }
-
-  async execute(file: Express.Multer.File): Promise<void> {
-    const categories = await this.loadCategories(file);
-
-    console.log(categories);
   }
 }

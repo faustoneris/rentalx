@@ -3,7 +3,7 @@ import { Category } from "../model/Category";
 export interface CategoryDTO {
   name: string;
   description: string;
-  created_at: Date;
+  created_at?: Date;
 }
 
 export class CategoryRepository {
@@ -13,7 +13,7 @@ export class CategoryRepository {
     this.categories = [];
   }
 
-  create({ name, description, created_at }: CategoryDTO): void {
+  create({ name, description }: CategoryDTO): void {
     const category = new Category();
 
     Object.assign(category, {
