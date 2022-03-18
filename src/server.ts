@@ -1,6 +1,8 @@
 import express, { json, request } from "express";
 import { categoriesRoutes } from "./routes/categories.routes";
 import { specificationRoutes } from "./routes/specifications.routes";
+import "./database";
+
 const app = express();
 
 app.get("/", (request, response) => {
